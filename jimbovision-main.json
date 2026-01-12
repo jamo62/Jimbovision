@@ -1,0 +1,18 @@
+{
+	"id": "jimbovision", 
+	"name": "Jimbovision", 
+	"author": ["Jamo62, metropori_shima and Members of the ESC Gabe Discord Server"], 
+	"description": "A (very much in development) Balatro mod themed around Eurovision!",
+	"prefix": "escb",
+	"main_file": "main.lua", 
+	"priority": -20, 
+	"badge_colour": "ffa500",
+	"badge_text_colour": "ffffff", 
+	"display_name": "12",
+	"version": "1.0.0",
+	"dependencies": [
+		"Steamodded (>=1.0.0~BETA-0624a)",
+		"Lovely (>=0.6)" 
+	], 
+	"dump_loc": false 
+}
