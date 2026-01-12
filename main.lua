@@ -39,7 +39,7 @@ SMODS.Atlas({
 
 -- Adrenalina (credit to Eremel for some code relating to making the tag make another tag, also N' from the Balatro discord for dealing with my bs)
 SMODS.Sound({
-    key = "adrenalinasound",
+    key = "escb_adrenalinasound",
     path = 'adrenalinasound.ogg',
 })
 
@@ -67,7 +67,7 @@ SMODS.Tag {
                 return true
             end)
             tag.triggered = true
-            -- play_sound("escb_adrenalinasound")
+            play_sound("escb_adrenalinasound")
         end
     end
 }  
@@ -75,8 +75,8 @@ SMODS.Tag {
 SMODS.Atlas({
     key = "sm-2021",
     path = "adrenalina.png", 
-    px = 128,
-    py = 128,
+    px = 34,
+    py = 34,
 })
 
 
