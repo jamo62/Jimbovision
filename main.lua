@@ -1,10 +1,10 @@
--- Rockerfeller Street
+-- Rockefeller Street
 SMODS.Joker {
     key = "ee-2011",
-    loc_txt = { name = 'Rockerfeller Street',
-    text = { 'All played {C:attention}Aces{}, {C:attention}2s{},', 
-    '{C:attention}7s{} or {C:attention}3s{} give {C:mult}+13{} ',
-    'Mult when scored'} ,
+    loc_txt = { name = 'Rockefeller Street',
+    text = { 'All played {C:attention}Aces{}, {C:attention}2s{}, {C:attention}7s{}', 
+    'or {C:attention}3s{} give {C:mult}+13{} Mult when scored',
+    '{C:inactive}"Because tonight, it is showtime!"{}'}
     },
     atlas = 'ee-2011',
     blueprint_compat = true,
@@ -31,7 +31,7 @@ SMODS.Joker {
 
 SMODS.Atlas({
     key = "ee-2011",
-    path = "test.png", 
+    path = "jokers.png", 
     px = 71,
     py = 95,
 })
@@ -79,4 +79,43 @@ SMODS.Atlas({
     py = 34,
 })
 
+-- Who The Hell is Edgar?
+SMODS.Joker {
+    key = "at-2023",
+    loc_txt = { name = 'Who The Hell is Edgar?',
+    text = { 'Gains {X:mult,C:white}X#1#{} Mult at end of round,', 
+    '{C:inactive}(Currently {C:white,X:mult}X#2#{}){}',
+    '{C:inactive}"Give me 2 years and your dinner will be free."{}'} ,
+    },
+    atlas = 'at-2023',
+    blueprint_compat = true,
+    rarity = 2,
+    cost = 6,
+    pos = { x = 1, y = 0 },
+    config = { extra = { Xmult_gain = 0.003, Xmult = 1 } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = {card.ability.extra.Xmult_gain, card.ability.extra.Xmult} }
+    end,
+    calculate = function(self, card, context)
+        if context.end_of_round and context.main_eval and not context.blueprint then
+                card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_gain
+                return {
+                    message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.Xmult_gain } },
+                    colour = G.C.RED,
+                    delay = 0.2
+                }
+            end
+        if context.joker_main then
+                return {
+                xmult = card.ability.extra.Xmult
+                }
+            end
+        end
+}
 
+SMODS.Atlas({
+    key = "at-2023",
+    path = "jokers.png", 
+    px = 71,
+    py = 95,
+})

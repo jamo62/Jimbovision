@@ -1,15 +1,15 @@
 {
 	"id": "jimbovision", 
 	"name": "Jimbovision", 
-	"author": ["Jamo62, metropori_shima and Members of the ESC Gabe Discord Server"], 
-	"description": "A (very much in development) Balatro mod themed around Eurovision!",
+	"author": ["Jamo62"], 
+	"description": "A (very much in development) Balatro mod themed around Eurovision! Art made by Ringo (Instagram: metropori_shima). Special thanks to the ESC Gabe Discord server for some card ideas!",
 	"prefix": "escb",
 	"main_file": "main.lua", 
 	"priority": -20, 
 	"badge_colour": "ffa500",
 	"badge_text_colour": "ffffff", 
 	"display_name": "12",
-	"version": "1.0.0",
+	"version": "0.1.1",
 	"dependencies": [
 		"Steamodded (>=1.0.0~BETA-0624a)",
 		"Lovely (>=0.6)" 
