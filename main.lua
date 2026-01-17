@@ -119,3 +119,162 @@ SMODS.Atlas({
     px = 71,
     py = 95,
 })
+
+-- The Code
+SMODS.Joker {
+    key = "ch-2024",
+    loc_txt = { name = 'The Code',
+    text = { 'Gains {X:mult,C:white}X#1#{} Mult at end of round',
+    'resets when an {C:attention}Ace{} or {C:attention}10{} is played',
+    '{C:inactive}(Currently {C:white,X:mult}X#2#{}){}',
+    '{C:inactive}"I broke the code, woah oh oh."{}' },
+    },
+    atlas = 'ch-2024',
+    blueprint_compat = true,
+    rarity = 3,
+    cost = 9,
+    pos = { x = 2, y = 0 },
+    config = { extra = { Xmult_gain = 0.1, Xmult = 1 } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = {card.ability.extra.Xmult_gain, card.ability.extra.Xmult} }
+    end,
+    calculate = function(self, card, context)
+        if context.end_of_round and context.main_eval and not context.blueprint then
+                card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_gain
+                return {
+                    message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.Xmult_gain } },
+                    colour = G.C.RED,
+                    delay = 0.2
+                }
+            end
+        local reset = false
+        if context.individual and context.cardarea == G.play then
+            if context.other_card:get_id() == 10 or
+                context.other_card:get_id() == 14 then
+                reset = true
+                end
+            end
+            if reset then
+                if card.ability.extra.Xmult > 1 then
+                    card.ability.extra.Xmult = 1
+                    return {
+                        message = localize('k_reset')
+                    }
+                end
+        end
+        if context.joker_main then
+                return {
+                xmult = card.ability.extra.Xmult
+                }
+        end
+    end
+    
+}
+
+
+SMODS.Atlas({
+    key = "ch-2024",
+    path = "jokers.png",
+    px = 71,
+    py = 95,
+})
+
+-- Repeat
+SMODS.Joker {
+    key = "menf-2025",
+    loc_txt = { name = 'Repeat',
+    text = { 'Retriggers {C:attention}every{} scoring card once',
+    '{C:inactive}"Daj mi beat, da me vozi, da mi da tu nit."{}' },
+    },
+    atlas = 'menf-2025',
+    blueprint_compat = true,
+    rarity = 2,
+    cost = 6,
+    pos = { x = 3, y = 0 },
+    config = { extra = { repetitions = 1 } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.repetitions } }
+    end,
+    calculate = function(self, card, context)
+        if context.repetition and context.cardarea == G.play then
+            return {
+                repetitions = card.ability.extra.repetitions
+            }
+        end
+    end
+}
+
+SMODS.Atlas({
+    key = "menf-2025",
+    path = "jokers.png",
+    px = 71,
+    py = 95,
+})
+
+-- Snap
+SMODS.Joker {
+    key = 'am-2022',
+    loc_txt = { name = 'Snap',
+    text = { 'Retriggers each scoring {C:attention}Ace{} and {C:attention}2{}',
+    '{C:inactive}"I snap in 1, 2... where are you?"{}'},
+    },
+    atlas = 'am-2022',
+    blueprint_compat = true,
+    rarity = 1,
+    cost = 3,
+    pos = { x = 4, y = 0 },
+    config = { extra = { repetitions = 1 } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.repetitions } }
+    end,
+    calculate = function(self, card, context)
+        if context.repetition and context.cardarea == G.play then
+            if context.other_card:get_id() == 2 or
+             context.other_card:get_id() == 14 then
+                return {
+                    repetitions = card.ability.extra.repetitions
+                }
+            end
+        end
+    end
+}
+
+SMODS.Atlas({
+    key = 'am-2022',
+    path = 'jokers.png',
+    px = 71,
+    py = 95,
+})
+
+-- Light Up The Room
+SMODS.Blind {
+    key = "gb-2021",
+    loc_txt = { name = 'Light Up The Room',
+    text = { 'All hands start with 0 chips' },
+    },
+    dollars = 5,
+    mult = 2,
+    atlas = "gb-2021",
+    pos = { x = 0, y = 0 },
+    boss = { min = 1 },
+    boss_colour = HEX("012169"),
+    calculate = function(self, blind, context)
+        if not blind.disabled then
+            if context.modify_hand then
+                blind.triggered = true -- Won't trigger Matador, can't bother to fix (who uses matador anyway?)
+                mult = mod_mult(math.max(math.floor(mult * 1), 1))
+                hand_chips = mod_chips(math.max(math.floor(hand_chips * 0), 0))
+                update_hand_text({ sound = 'chips2', modded = true }, { chips = hand_chips, mult = mult })
+            end
+        end
+    end
+}
+
+SMODS.Atlas({
+    key = "gb-2021",
+    atlas_table = 'ANIMATION_ATLAS',
+    frames = 1,
+    path = 'blinds.png',
+    px = 32,
+    py = 32,
+})

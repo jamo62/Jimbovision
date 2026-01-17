@@ -9,7 +9,7 @@
 	"badge_colour": "ffa500",
 	"badge_text_colour": "ffffff", 
 	"display_name": "12",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"dependencies": [
 		"Steamodded (>=1.0.0~BETA-0624a)",
 		"Lovely (>=0.6)" 
