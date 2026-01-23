@@ -278,3 +278,117 @@ SMODS.Atlas({
     px = 32,
     py = 32,
 })
+
+-- You are The Only One
+--[[ SMODS.Joker {
+    key = 'ru-2016',
+    loc_txt = { name = 'You Are The Only One',
+    text = { 'When hand contains {C:attention}1 card{}, destroy',
+    '{C:attention}all{} cards held in hand',
+    '{C:inactive}"Will not stop... hold on..."{}' },
+    },
+    atlas = 'ru-2016',
+    blueprint_compat = false,
+    rarity = 2,
+    cost = 4,
+    pos = { x = 5, y = 0 },
+    calculate = function(self, card, context)
+        if context.before and #context.full_hand == 1 then
+            SMODS.destroy_cards(G.hand.cards)
+        end
+    end
+}
+
+SMODS.Atlas({
+    key = "ru-2016",
+    path = "jokers.png",
+    px = 71,
+    py = 95,
+}) ]]
+
+-- Rise like a Phoenix
+SMODS.Joker {
+    key = 'at-2014',
+    loc_txt = { name = "Rise Like A Phoenix",
+    text = { 'If chip total is {C:attention}less than{}',
+    '25% of blind requirement on final hand',
+    'of round, {X:mult,C:white}X#1#{} Mult',
+    '{C:inactive}"You threw me down but... I am gonna fly!"{}' },
+    },
+    atlas = 'at-2014',
+    blueprint_compat = false,
+    rarity = 3,
+    cost = 8,
+    pos = { x = 6, y = 0 },
+    config = { extra = { Xmult = 3 } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = {card.ability.extra.Xmult} }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main and G.GAME.current_round.hands_left == 0 and G.GAME.chips / G.GAME.blind.chips <= 0.25 then
+                return {
+                xmult = card.ability.extra.Xmult
+                }
+        end
+    end
+}
+
+SMODS.Atlas({
+    key = "at-2014",
+    path = "jokers.png",
+    px = 71,
+    py = 95,
+})
+
+-- The Gambler's Song
+SMODS.Joker {
+    key = 'lunf-2025',
+    loc_txt = { name = "The Gambler's Song",
+    text = { "{X:mult,C:white} X#1# {} Mult",
+    "{C:green}#2# in #3#{} chance card",
+    "is destroyed and money is",
+    "set to {C:green}$0{} at end of round",
+    '{C:inactive}"No regrets forever more..."{}' },
+    },
+    atlas = 'lunf-2025',
+    blueprint_compat = true,
+    rarity = 3,
+    cost = 10,
+    pos = { x = 0, y = 1},
+    config = { extra = { odds = 100, Xmult = 10 } },
+    loc_vars = function(self, info_queue, card)
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'escb_lunf-2025')
+        return { vars = { card.ability.extra.Xmult, numerator, denominator } }
+    end,
+    calculate = function(self, card, context)
+        if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
+            if SMODS.pseudorandom_probability(card, 'escb_lunf-2025', 1, card.ability.extra.odds) then
+                SMODS.destroy_cards(card, nil, nil, true)
+                if G.GAME.dollars ~= 0 then
+                    ease_dollars(-G.GAME.dollars, true)
+                end
+                return {
+                    message = localize { type = 'variable', key = 'a_xmult', vars = 'GAMBLING!!!' },
+                    colour = G.C.RED,
+                    delay = 0.2
+                }
+            else
+                return {
+                    message = localize('k_safe_ex')
+                }
+            end
+        end
+        if context.joker_main then
+            return {
+                xmult = card.ability.extra.Xmult
+            }
+        end
+    end        
+}
+
+SMODS.Atlas({
+    key = "lunf-2025",
+    path = "jokers.png",
+    px = 71,
+    py = 95,
+})
