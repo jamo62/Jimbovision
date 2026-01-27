@@ -280,7 +280,7 @@ SMODS.Atlas({
 })
 
 -- You are The Only One
---[[ SMODS.Joker {
+ SMODS.Joker {
     key = 'ru-2016',
     loc_txt = { name = 'You Are The Only One',
     text = { 'When hand contains {C:attention}1 card{}, destroy',
@@ -304,7 +304,7 @@ SMODS.Atlas({
     path = "jokers.png",
     px = 71,
     py = 95,
-}) ]]
+})
 
 -- Rise like a Phoenix
 SMODS.Joker {
