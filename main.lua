@@ -392,3 +392,41 @@ SMODS.Atlas({
     px = 71,
     py = 95,
 })
+
+-- Save Your Kisses For Me
+SMODS.Joker {
+    key = "uk-1976",
+    loc_txt = { name = 'Save Your Kisses For Me',
+    text = { "Every played {C:hearts}Heart{} card",
+    "permanently gains",
+    "{C:chips}+#1#{} Chips when scored",
+    '{C:inactive}"Do not cry honey, do not cry..."{}' },
+    },
+    blueprint_compat = true,
+    rarity = 1,
+    cost = 3,
+    atlas = 'uk-1976',
+    pos = { x = 1, y = 1 },
+    config = { extra = { chips = 3, suit = 'Hearts' } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.chips, localize(card.ability.extra.suit, 'suits_singular') } }
+    end,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play and
+            context.other_card:is_suit(card.ability.extra.suit) then
+            context.other_card.ability.perma_bonus = (context.other_card.ability.perma_bonus or 0) +
+                card.ability.extra.chips
+            return {
+                message = localize('k_upgrade_ex'),
+                colour = G.C.CHIPS
+            }
+        end
+    end
+}
+
+SMODS.Atlas({
+    key = "uk-1976",
+    path = "jokers.png",
+    px = 71,
+    py = 95,
+})
