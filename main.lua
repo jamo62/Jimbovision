@@ -255,7 +255,7 @@ SMODS.Blind {
     dollars = 5,
     mult = 2,
     atlas = "gb-2021",
-    pos = { x = 0, y = 0 },
+    pos = { x = 0, y = 1 },
     boss = { min = 1 },
     boss_colour = HEX("012169"),
     calculate = function(self, blind, context)
@@ -429,4 +429,43 @@ SMODS.Atlas({
     path = "jokers.png",
     px = 71,
     py = 95,
+})
+
+-- Druk Dra
+SMODS.Blind {
+    key = "bh-2025",
+    loc_txt = { name = 'Druk Dra',
+    text = { '1 in 6 chance for',
+    'hand to be debuffed' },
+    },
+    dollars = 5,
+    mult = 2,
+    atlas = "bh-2025",
+    pos = { x = 0, y = 0 },
+    boss = { min = 1 },
+    boss_colour = HEX("012169"),
+    loc_vars = function(self)
+        local numerator, denominator = SMODS.get_probability_vars(self, 1, 6, 'escb_bh-2025')
+        return { vars = { numerator, denominator } }
+    end,
+    collection_loc_vars = function(self)
+        return { vars = { '1' } }
+    end,
+    calculate = function(self, blind, context)
+        if not blind.disabled then
+            if context.debuff_hand and not context.check and 
+            SMODS.pseudorandom_probability(card, 'esc_bh-2025', 1, 6) then
+                return {debuff = true}
+            end 
+        end
+    end
+}
+
+SMODS.Atlas({
+    key = "bh-2025",
+    atlas_table = 'ANIMATION_ATLAS',
+    frames = 1,
+    path = 'blinds.png',
+    px = 32,
+    py = 32,
 })
