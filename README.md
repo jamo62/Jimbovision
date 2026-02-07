@@ -1,7 +1,7 @@
 This is a mod for Balatro that adds a bunch of Jokers and Boss Blinds, a few vouchers, one tag, and visual changes to the Tarot and Spectral Cards based on the Eurovision Song Contest!
 
 # IMPORTANT INFO
-As of this message, this mod is in extremely early development, I am expecting a lot of patience in getting this done, since this is my first coding related thing I've ever really done (scratch does not count (editor lewis here, it gives you fundimentals))
+As of this message, this mod is in extremely early development, I am expecting a lot of patience in getting this done, since this is my first coding related thing I've ever really done (scratch does not count)
 
 Due to how it works, Talisman will crash your game with some Jokers, I recommend switching to [Amulet](https://github.com/frostice482/amulet) to dodge these problems. Talisman should still work for the most part, but Amulet fixes a lot of issues.
 
