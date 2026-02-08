@@ -2,9 +2,9 @@
 SMODS.Joker {
     key = "ee-2011",
     loc_txt = { name = 'Rockefeller Street',
-    text = { 'All played {C:attention}Aces{}, {C:attention}2s{}, {C:attention}7s{}', 
-    'or {C:attention}3s{} give {C:mult}+13{} Mult when scored',
-    '{C:inactive}"Because tonight, it is showtime!"{}'}
+        text = { 'All played {C:attention}Aces{}, {C:attention}2s{}, {C:attention}7s{}',
+            'or {C:attention}3s{} give {C:mult}+13{} Mult when scored',
+            '{C:inactive}"Because tonight, it is showtime!"{}' }
     },
     atlas = 'ee-2011',
     blueprint_compat = true,
@@ -31,7 +31,7 @@ SMODS.Joker {
 
 SMODS.Atlas({
     key = "ee-2011",
-    path = "jokers.png", 
+    path = "jokers.png",
     px = 71,
     py = 95,
 })
@@ -47,12 +47,12 @@ SMODS.Tag {
     key = "sm-2021",
     atlas = 'sm-2021',
     pos = { x = 0, y = 0 },
-    loc_txt = { 
+    loc_txt = {
         name = 'Adrenalina',
         text = { 'Create a {C:attention}Standard Tag{}, {C:tarot}Charm Tag{}',
-		'{C:attention}Buffoon Tag{}, {C:planet}Meteor Tag',
-        'or {C:spectral}Ethereal Tag',
-    '{C:inactive}WARNING: contains Flo Rida'}
+            '{C:attention}Buffoon Tag{}, {C:planet}Meteor Tag',
+            'or {C:spectral}Ethereal Tag',
+            '{C:inactive}WARNING: contains Flo Rida' }
     },
     min_ante = 1,
     config = { spawn_tag = 1 },
@@ -61,7 +61,8 @@ SMODS.Tag {
             local lock = tag.ID
             G.CONTROLLER.locks[lock] = true
             tag:yep('+', G.C.BLUE, function()
-                local selected_tag = pseudorandom_element({'tag_standard', 'tag_charm', 'tag_buffoon', 'tag_meteor', 'tag_ethereal'}, "seed")
+                local selected_tag = pseudorandom_element(
+                    { 'tag_standard', 'tag_charm', 'tag_buffoon', 'tag_meteor', 'tag_ethereal' }, "seed")
                 add_tag(Tag(selected_tag))
                 G.CONTROLLER.locks[lock] = nil
                 return true
@@ -70,11 +71,11 @@ SMODS.Tag {
             play_sound("escb_adrenalinasound")
         end
     end
-}  
+}
 
 SMODS.Atlas({
     key = "sm-2021",
-    path = "adrenalina.png", 
+    path = "adrenalina.png",
     px = 34,
     py = 34,
 })
@@ -83,9 +84,9 @@ SMODS.Atlas({
 SMODS.Joker {
     key = "at-2023",
     loc_txt = { name = 'Who The Hell is Edgar?',
-    text = { 'Gains {X:mult,C:white}X#1#{} Mult at end of round,', 
-    '{C:inactive}(Currently {C:white,X:mult}X#2#{}){}',
-    '{C:inactive}"Give me 2 years and your dinner will be free."{}'} ,
+        text = { 'Gains {X:mult,C:white}X#1#{} Mult at end of round,',
+            '{C:inactive}(Currently {C:white,X:mult}X#2#{}){}',
+            '{C:inactive}"Give me 2 years and your dinner will be free."{}' },
     },
     atlas = 'at-2023',
     blueprint_compat = true,
@@ -94,28 +95,28 @@ SMODS.Joker {
     pos = { x = 1, y = 0 },
     config = { extra = { Xmult_gain = 0.003, Xmult = 1 } },
     loc_vars = function(self, info_queue, card)
-        return { vars = {card.ability.extra.Xmult_gain, card.ability.extra.Xmult} }
+        return { vars = { card.ability.extra.Xmult_gain, card.ability.extra.Xmult } }
     end,
     calculate = function(self, card, context)
         if context.end_of_round and context.main_eval and not context.blueprint then
-                card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_gain
-                return {
-                    message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.Xmult_gain } },
-                    colour = G.C.RED,
-                    delay = 0.2
-                }
-            end
-        if context.joker_main then
-                return {
-                xmult = card.ability.extra.Xmult
-                }
-            end
+            card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_gain
+            return {
+                message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.Xmult_gain } },
+                colour = G.C.RED,
+                delay = 0.2
+            }
         end
+        if context.joker_main then
+            return {
+                xmult = card.ability.extra.Xmult
+            }
+        end
+    end
 }
 
 SMODS.Atlas({
     key = "at-2023",
-    path = "jokers.png", 
+    path = "jokers.png",
     px = 71,
     py = 95,
 })
@@ -124,10 +125,10 @@ SMODS.Atlas({
 SMODS.Joker {
     key = "ch-2024",
     loc_txt = { name = 'The Code',
-    text = { 'Gains {X:mult,C:white}X#1#{} Mult at end of round',
-    'resets when an {C:attention}Ace{} or {C:attention}10{} is played',
-    '{C:inactive}(Currently {C:white,X:mult}X#2#{}){}',
-    '{C:inactive}"I broke the code, woah oh oh."{}' },
+        text = { 'Gains {X:mult,C:white}X#1#{} Mult at end of round',
+            'resets when an {C:attention}Ace{} or {C:attention}10{} is played',
+            '{C:inactive}(Currently {C:white,X:mult}X#2#{}){}',
+            '{C:inactive}"I broke the code, woah oh oh."{}' },
     },
     atlas = 'ch-2024',
     blueprint_compat = true,
@@ -136,39 +137,39 @@ SMODS.Joker {
     pos = { x = 2, y = 0 },
     config = { extra = { Xmult_gain = 0.1, Xmult = 1 } },
     loc_vars = function(self, info_queue, card)
-        return { vars = {card.ability.extra.Xmult_gain, card.ability.extra.Xmult} }
+        return { vars = { card.ability.extra.Xmult_gain, card.ability.extra.Xmult } }
     end,
     calculate = function(self, card, context)
         if context.end_of_round and context.main_eval and not context.blueprint then
-                card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_gain
-                return {
-                    message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.Xmult_gain } },
-                    colour = G.C.RED,
-                    delay = 0.2
-                }
-            end
+            card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_gain
+            return {
+                message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.Xmult_gain } },
+                colour = G.C.RED,
+                delay = 0.2
+            }
+        end
         local reset = false
         if context.individual and context.cardarea == G.play then
             if context.other_card:get_id() == 10 or
                 context.other_card:get_id() == 14 then
                 reset = true
-                end
             end
-            if reset then
-                if card.ability.extra.Xmult > 1 then
-                    card.ability.extra.Xmult = 1
-                    return {
-                        message = localize('k_reset')
-                    }
-                end
+        end
+        if reset then
+            if card.ability.extra.Xmult > 1 then
+                card.ability.extra.Xmult = 1
+                return {
+                    message = localize('k_reset')
+                }
+            end
         end
         if context.joker_main then
-                return {
+            return {
                 xmult = card.ability.extra.Xmult
-                }
+            }
         end
     end
-    
+
 }
 
 
@@ -183,8 +184,8 @@ SMODS.Atlas({
 SMODS.Joker {
     key = "menf-2025",
     loc_txt = { name = 'Repeat',
-    text = { 'Retriggers {C:attention}every{} scoring card once',
-    '{C:inactive}"Daj mi beat, da me vozi, da mi da tu nit."{}' },
+        text = { 'Retriggers {C:attention}every{} scoring card once',
+            '{C:inactive}"Daj mi beat, da me vozi, da mi da tu nit."{}' },
     },
     atlas = 'menf-2025',
     blueprint_compat = true,
@@ -215,8 +216,8 @@ SMODS.Atlas({
 SMODS.Joker {
     key = 'am-2022',
     loc_txt = { name = 'Snap',
-    text = { 'Retriggers each scoring {C:attention}Ace{} and {C:attention}2{}',
-    '{C:inactive}"I snap in 1, 2... where are you?"{}'},
+        text = { 'Retriggers each scoring {C:attention}Ace{} and {C:attention}2{}',
+            '{C:inactive}"I snap in 1, 2... where are you?"{}' },
     },
     atlas = 'am-2022',
     blueprint_compat = true,
@@ -230,7 +231,7 @@ SMODS.Joker {
     calculate = function(self, card, context)
         if context.repetition and context.cardarea == G.play then
             if context.other_card:get_id() == 2 or
-             context.other_card:get_id() == 14 then
+                context.other_card:get_id() == 14 then
                 return {
                     repetitions = card.ability.extra.repetitions
                 }
@@ -250,7 +251,7 @@ SMODS.Atlas({
 SMODS.Blind {
     key = "gb-2021",
     loc_txt = { name = 'Light Up The Room',
-    text = { 'All hands start with 0 chips' },
+        text = { 'All hands start with 0 chips' },
     },
     dollars = 5,
     mult = 2,
@@ -280,12 +281,12 @@ SMODS.Atlas({
 })
 
 -- You are The Only One
- SMODS.Joker {
+SMODS.Joker {
     key = 'ru-2016',
     loc_txt = { name = 'You Are The Only One',
-    text = { 'When hand contains {C:attention}1 card{}, destroy',
-    '{C:attention}all{} cards held in hand',
-    '{C:inactive}"Will not stop... hold on..."{}' },
+        text = { 'When hand contains {C:attention}1 card{}, destroy',
+            '{C:attention}all{} cards held in hand',
+            '{C:inactive}"Will not stop... hold on..."{}' },
     },
     atlas = 'ru-2016',
     blueprint_compat = false,
@@ -310,10 +311,10 @@ SMODS.Atlas({
 SMODS.Joker {
     key = 'at-2014',
     loc_txt = { name = "Rise Like A Phoenix",
-    text = { 'If chip total is {C:attention}less than{}',
-    '25% of blind requirement on final hand',
-    'of round, {X:mult,C:white}X#1#{} Mult',
-    '{C:inactive}"You threw me down but... I am gonna fly!"{}' },
+        text = { 'If chip total is {C:attention}less than{}',
+            '25% of blind requirement on final hand',
+            'of round, {X:mult,C:white}X#1#{} Mult',
+            '{C:inactive}"You threw me down but... I am gonna fly!"{}' },
     },
     atlas = 'at-2014',
     blueprint_compat = false,
@@ -322,13 +323,13 @@ SMODS.Joker {
     pos = { x = 6, y = 0 },
     config = { extra = { Xmult = 3 } },
     loc_vars = function(self, info_queue, card)
-        return { vars = {card.ability.extra.Xmult} }
+        return { vars = { card.ability.extra.Xmult } }
     end,
     calculate = function(self, card, context)
         if context.joker_main and G.GAME.current_round.hands_left == 0 and G.GAME.chips / G.GAME.blind.chips <= 0.25 then
-                return {
+            return {
                 xmult = card.ability.extra.Xmult
-                }
+            }
         end
     end
 }
@@ -344,17 +345,17 @@ SMODS.Atlas({
 SMODS.Joker {
     key = 'lunf-2025',
     loc_txt = { name = "The Gambler's Song",
-    text = { "{X:mult,C:white} X#1# {} Mult",
-    "{C:green}#2# in #3#{} chance card",
-    "is destroyed and money is",
-    "set to {C:green}$0{} at end of round",
-    '{C:inactive}"No regrets forever more..."{}' },
+        text = { "{X:mult,C:white} X#1# {} Mult",
+            "{C:green}#2# in #3#{} chance card",
+            "is destroyed and money is",
+            "set to {C:green}$0{} at end of round",
+            '{C:inactive}"No regrets forever more..."{}' },
     },
     atlas = 'lunf-2025',
     blueprint_compat = true,
     rarity = 3,
     cost = 10,
-    pos = { x = 0, y = 1},
+    pos = { x = 0, y = 1 },
     config = { extra = { odds = 100, Xmult = 10 } },
     loc_vars = function(self, info_queue, card)
         local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'escb_lunf-2025')
@@ -383,7 +384,7 @@ SMODS.Joker {
                 xmult = card.ability.extra.Xmult
             }
         end
-    end        
+    end
 }
 
 SMODS.Atlas({
@@ -397,10 +398,10 @@ SMODS.Atlas({
 SMODS.Joker {
     key = "uk-1976",
     loc_txt = { name = 'Save Your Kisses For Me',
-    text = { "Every played {C:hearts}Heart{} card",
-    "permanently gains",
-    "{C:chips}+#1#{} Chips when scored",
-    '{C:inactive}"Do not cry honey, do not cry..."{}' },
+        text = { "Every played {C:hearts}Heart{} card",
+            "permanently gains",
+            "{C:chips}+#1#{} Chips when scored",
+            '{C:inactive}"Do not cry honey, do not cry..."{}' },
     },
     blueprint_compat = true,
     rarity = 1,
@@ -435,15 +436,15 @@ SMODS.Atlas({
 SMODS.Blind {
     key = "bh-2025",
     loc_txt = { name = 'Druk Dra',
-    text = { '1 in 6 chance for',
-    'hand to be debuffed' },
+        text = { '1 in 6 chance for',
+            'hand to be debuffed' },
     },
     dollars = 5,
     mult = 2,
     atlas = "bh-2025",
     pos = { x = 0, y = 0 },
     boss = { min = 1 },
-    boss_colour = HEX("012169"),
+    boss_colour = HEX("79497f"),
     loc_vars = function(self)
         local numerator, denominator = SMODS.get_probability_vars(self, 1, 6, 'escb_bh-2025')
         return { vars = { numerator, denominator } }
@@ -453,10 +454,10 @@ SMODS.Blind {
     end,
     calculate = function(self, blind, context)
         if not blind.disabled then
-            if context.debuff_hand and not context.check and 
-            SMODS.pseudorandom_probability(card, 'esc_bh-2025', 1, 6) then
-                return {debuff = true}
-            end 
+            if context.debuff_hand and not context.check and
+                SMODS.pseudorandom_probability(card, 'esc_bh-2025', 1, 6) then
+                return { debuff = true }
+            end
         end
     end
 }
@@ -468,4 +469,36 @@ SMODS.Atlas({
     path = 'blinds.png',
     px = 32,
     py = 32,
+})
+
+-- Rim Tim Tagi Dim
+SMODS.Joker {
+    key = "hr-2024",
+    loc_txt = { name = 'Rim Tim Tagi Dim',
+        text = { "{X:mult,C:white}x1.5{} Mult on {C:attention}boss blinds{}",
+            '{C:inactive}"One more time for all the good times..."{}' },
+    },
+    blueprint_compat = true,
+    rarity = 2,
+    cost = 5,
+    atlas = 'hr-2024',
+    pos = { x = 2, y = 1 },
+    config = { extra = { ohlawdhecoming = 1.5 } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.ohlawdhecoming } }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main and G.GAME.blind.boss then
+            return {
+                xmult = card.ability.extra.ohlawdhecoming
+            }
+        end
+    end
+}
+
+SMODS.Atlas({
+    key = "hr-2024",
+    path = "jokers.png",
+    px = 71,
+    py = 95,
 })
